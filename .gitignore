@@ -79,7 +79,7 @@ target/
 .ipynb_checkpoints
 
 #Checkpoint
-.Checkpoint
+.ckpt
 
 # IPython
 profile_default/
