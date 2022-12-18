@@ -1,0 +1,802 @@
+worker-1
+/usr/bin/python3
+Sun Dec 18 13:30:39 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.65.01    Driver Version: 515.65.01    CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Quadro RTX 8000     Off  | 00000000:B2:00.0 Off |                  Off |
+| 33%   28C    P8    13W / 260W |      0MiB / 49152MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+SHELL=/bin/bash
+SLURM_JOB_USER=xiec
+SLURM_TASKS_PER_NODE=1
+SLURM_JOB_UID=33066
+SLURM_TASK_PID=3818830
+SLURM_JOB_GPUS=7
+SLURM_LOCALID=0
+SLURM_SUBMIT_DIR=/home/stud/xiec/workarea/Dreambooth-Stable-Diffusion
+HOSTNAME=worker-1
+SLURMD_NODENAME=worker-1
+SLURM_NODE_ALIASES=(null)
+SLURM_CLUSTER_NAME=cluster
+SLURM_CPUS_ON_NODE=1
+SLURM_JOB_CPUS_PER_NODE=1
+PWD=/home/stud/xiec/workarea/Dreambooth-Stable-Diffusion
+SLURM_GTIDS=0
+LOGNAME=xiec
+XDG_SESSION_TYPE=tty
+SLURM_JOB_PARTITION=main
+SLURM_JOB_NUM_NODES=1
+SLURM_JOBID=1114723
+SLURM_JOB_QOS=normal
+MOTD_SHOWN=pam
+HOME=/home/stud/xiec
+LANG=C.UTF-8
+SLURM_PROCID=0
+TMPDIR=/tmp
+SLURM_NTASKS=1
+SLURM_TOPOLOGY_ADDR=worker-1
+SSH_CONNECTION=10.163.153.221 62457 10.153.51.179 22
+SLURM_TOPOLOGY_ADDR_PATTERN=node
+CUDA_VISIBLE_DEVICES=0
+XDG_SESSION_CLASS=user
+SLURM_WORKING_CLUSTER=cluster:worker-0:6817:8704:101
+TERM=xterm-256color
+USER=xiec
+SLURM_NODELIST=worker-1
+ENVIRONMENT=BATCH
+GPU_DEVICE_ORDINAL=0
+SLURM_JOB_ACCOUNT=stud
+SLURM_PRIO_PROCESS=0
+SLURM_NPROCS=1
+SHLVL=2
+SLURM_NNODES=1
+XDG_SESSION_ID=148925
+SLURM_SUBMIT_HOST=zandalar
+LC_CTYPE=C.UTF-8
+XDG_RUNTIME_DIR=/run/user/33066
+SLURM_JOB_ID=1114723
+SLURM_NODEID=0
+SSH_CLIENT=10.163.153.221 62457 22
+XDG_DATA_DIRS=/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SLURM_JOB_NAME=dreambooth-inference
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/33066/bus
+SSH_TTY=/dev/pts/10
+SLURM_JOB_GID=12100
+OLDPWD=/home/stud/xiec/workarea/Dreambooth-Stable-Diffusion/logdir
+SLURM_JOB_NODELIST=worker-1
+_=/usr/bin/env
+Global seed set to 42
+Some weights of the model checkpoint at openai/clip-vit-large-patch14 were not used when initializing CLIPTextModel: ['visual_projection.weight', 'vision_model.encoder.layers.19.self_attn.v_proj.bias', 'vision_model.encoder.layers.1.layer_norm2.bias', 'vision_model.encoder.layers.11.self_attn.out_proj.bias', 'vision_model.encoder.layers.16.self_attn.k_proj.weight', 'vision_model.encoder.layers.5.layer_norm2.weight', 'vision_model.encoder.layers.3.mlp.fc2.weight', 'vision_model.encoder.layers.23.self_attn.v_proj.weight', 'vision_model.encoder.layers.11.self_attn.v_proj.bias', 'vision_model.encoder.layers.21.mlp.fc2.weight', 'vision_model.encoder.layers.17.self_attn.out_proj.bias', 'vision_model.encoder.layers.23.self_attn.q_proj.weight', 'vision_model.encoder.layers.16.self_attn.k_proj.bias', 'vision_model.encoder.layers.18.layer_norm1.weight', 'vision_model.encoder.layers.10.self_attn.v_proj.bias', 'vision_model.encoder.layers.21.mlp.fc2.bias', 'vision_model.encoder.layers.1.self_attn.k_proj.bias', 'vision_model.encoder.layers.14.self_attn.k_proj.weight', 'vision_model.encoder.layers.8.mlp.fc2.weight', 'vision_model.encoder.layers.4.mlp.fc2.weight', 'vision_model.encoder.layers.23.self_attn.k_proj.bias', 'vision_model.encoder.layers.19.self_attn.q_proj.bias', 'logit_scale', 'vision_model.encoder.layers.2.self_attn.q_proj.weight', 'vision_model.encoder.layers.11.layer_norm2.weight', 'vision_model.post_layernorm.bias', 'vision_model.encoder.layers.4.self_attn.q_proj.bias', 'vision_model.encoder.layers.0.mlp.fc2.weight', 'vision_model.encoder.layers.10.layer_norm2.weight', 'vision_model.encoder.layers.5.mlp.fc1.weight', 'vision_model.encoder.layers.18.self_attn.q_proj.bias', 'vision_model.encoder.layers.19.layer_norm2.weight', 'vision_model.encoder.layers.20.layer_norm1.weight', 'vision_model.encoder.layers.2.mlp.fc2.bias', 'vision_model.encoder.layers.14.mlp.fc2.bias', 'vision_model.encoder.layers.9.mlp.fc2.weight', 'vision_model.encoder.layers.6.self_attn.out_proj.bias', 'vision_model.encoder.layers.12.self_attn.v_proj.weight', 'vision_model.encoder.layers.2.layer_norm2.weight', 'vision_model.encoder.layers.1.self_attn.k_proj.weight', 'vision_model.encoder.layers.18.self_attn.k_proj.weight', 'vision_model.encoder.layers.16.mlp.fc2.bias', 'vision_model.encoder.layers.20.mlp.fc1.bias', 'vision_model.encoder.layers.1.self_attn.q_proj.weight', 'vision_model.encoder.layers.8.layer_norm2.weight', 'vision_model.encoder.layers.18.self_attn.out_proj.weight', 'vision_model.encoder.layers.18.self_attn.k_proj.bias', 'vision_model.encoder.layers.4.self_attn.k_proj.weight', 'vision_model.encoder.layers.5.self_attn.q_proj.weight', 'vision_model.encoder.layers.14.layer_norm1.weight', 'vision_model.encoder.layers.22.layer_norm2.bias', 'vision_model.encoder.layers.9.layer_norm1.bias', 'vision_model.encoder.layers.12.mlp.fc2.weight', 'vision_model.encoder.layers.7.layer_norm1.bias', 'vision_model.encoder.layers.2.layer_norm1.bias', 'vision_model.encoder.layers.17.layer_norm2.bias', 'vision_model.encoder.layers.16.self_attn.v_proj.weight', 'vision_model.encoder.layers.15.self_attn.out_proj.bias', 'vision_model.pre_layrnorm.bias', 'vision_model.encoder.layers.12.self_attn.out_proj.weight', 'vision_model.encoder.layers.23.mlp.fc2.weight', 'vision_model.encoder.layers.18.layer_norm2.bias', 'vision_model.encoder.layers.8.self_attn.q_proj.weight', 'vision_model.encoder.layers.19.layer_norm1.weight', 'vision_model.encoder.layers.5.mlp.fc1.bias', 'vision_model.encoder.layers.6.mlp.fc1.bias', 'vision_model.encoder.layers.0.mlp.fc1.bias', 'vision_model.encoder.layers.2.self_attn.q_proj.bias', 'vision_model.encoder.layers.5.self_attn.v_proj.bias', 'vision_model.encoder.layers.10.mlp.fc1.bias', 'vision_model.encoder.layers.1.mlp.fc1.weight', 'vision_model.encoder.layers.16.self_attn.out_proj.bias', 'vision_model.post_layernorm.weight', 'vision_model.encoder.layers.16.self_attn.out_proj.weight', 'vision_model.encoder.layers.15.self_attn.v_proj.bias', 'vision_model.encoder.layers.11.self_attn.k_proj.weight', 'vision_model.encoder.layers.14.mlp.fc1.bias', 'vision_model.encoder.layers.12.layer_norm2.bias', 'vision_model.encoder.layers.11.layer_norm2.bias', 'vision_model.encoder.layers.22.mlp.fc2.bias', 'vision_model.encoder.layers.9.layer_norm2.bias', 'vision_model.encoder.layers.18.self_attn.v_proj.bias', 'vision_model.encoder.layers.19.layer_norm2.bias', 'vision_model.encoder.layers.14.mlp.fc2.weight', 'vision_model.encoder.layers.19.mlp.fc2.bias', 'vision_model.encoder.layers.6.self_attn.k_proj.bias', 'vision_model.encoder.layers.19.self_attn.v_proj.weight', 'vision_model.encoder.layers.3.layer_norm2.weight', 'vision_model.encoder.layers.20.self_attn.q_proj.bias', 'vision_model.encoder.layers.2.mlp.fc1.bias', 'vision_model.encoder.layers.1.mlp.fc2.weight', 'vision_model.encoder.layers.13.layer_norm2.weight', 'vision_model.encoder.layers.16.layer_norm2.bias', 'vision_model.encoder.layers.17.self_attn.k_proj.weight', 'vision_model.encoder.layers.4.mlp.fc1.bias', 'vision_model.encoder.layers.9.self_attn.k_proj.weight', 'vision_model.encoder.layers.23.layer_norm1.weight', 'vision_model.encoder.layers.0.self_attn.q_proj.bias', 'vision_model.encoder.layers.1.self_attn.out_proj.weight', 'vision_model.encoder.layers.13.self_attn.k_proj.weight', 'vision_model.encoder.layers.10.layer_norm2.bias', 'vision_model.encoder.layers.21.mlp.fc1.weight', 'vision_model.encoder.layers.9.self_attn.out_proj.weight', 'vision_model.encoder.layers.18.self_attn.q_proj.weight', 'vision_model.encoder.layers.17.mlp.fc1.bias', 'vision_model.encoder.layers.13.self_attn.q_proj.bias', 'vision_model.encoder.layers.14.layer_norm2.weight', 'vision_model.encoder.layers.17.self_attn.v_proj.bias', 'vision_model.encoder.layers.19.mlp.fc1.bias', 'vision_model.encoder.layers.0.self_attn.v_proj.bias', 'vision_model.encoder.layers.20.mlp.fc1.weight', 'vision_model.encoder.layers.3.self_attn.k_proj.weight', 'vision_model.encoder.layers.8.mlp.fc1.bias', 'vision_model.encoder.layers.15.mlp.fc1.bias', 'vision_model.encoder.layers.8.mlp.fc2.bias', 'vision_model.encoder.layers.13.self_attn.q_proj.weight', 'vision_model.encoder.layers.6.self_attn.v_proj.bias', 'vision_model.encoder.layers.13.mlp.fc1.bias', 'vision_model.encoder.layers.10.self_attn.q_proj.bias', 'vision_model.encoder.layers.14.layer_norm1.bias', 'vision_model.encoder.layers.8.self_attn.out_proj.bias', 'text_projection.weight', 'vision_model.encoder.layers.5.self_attn.k_proj.weight', 'vision_model.encoder.layers.16.self_attn.q_proj.bias', 'vision_model.encoder.layers.4.mlp.fc1.weight', 'vision_model.encoder.layers.18.mlp.fc2.weight', 'vision_model.encoder.layers.12.self_attn.k_proj.bias', 'vision_model.encoder.layers.0.self_attn.out_proj.weight', 'vision_model.encoder.layers.7.self_attn.v_proj.weight', 'vision_model.encoder.layers.7.self_attn.out_proj.bias', 'vision_model.encoder.layers.1.self_attn.q_proj.bias', 'vision_model.encoder.layers.17.mlp.fc1.weight', 'vision_model.encoder.layers.23.layer_norm2.weight', 'vision_model.encoder.layers.19.self_attn.q_proj.weight', 'vision_model.encoder.layers.13.layer_norm2.bias', 'vision_model.encoder.layers.6.self_attn.v_proj.weight', 'vision_model.encoder.layers.5.layer_norm2.bias', 'vision_model.encoder.layers.0.mlp.fc1.weight', 'vision_model.encoder.layers.16.layer_norm1.bias', 'vision_model.encoder.layers.11.self_attn.q_proj.weight', 'vision_model.encoder.layers.14.self_attn.q_proj.bias', 'vision_model.encoder.layers.20.self_attn.q_proj.weight', 'vision_model.encoder.layers.19.self_attn.out_proj.weight', 'vision_model.encoder.layers.14.layer_norm2.bias', 'vision_model.encoder.layers.8.mlp.fc1.weight', 'vision_model.encoder.layers.10.self_attn.v_proj.weight', 'vision_model.encoder.layers.14.self_attn.q_proj.weight', 'vision_model.encoder.layers.3.layer_norm1.bias', 'vision_model.encoder.layers.16.self_attn.q_proj.weight', 'vision_model.encoder.layers.1.layer_norm1.bias', 'vision_model.encoder.layers.20.self_attn.k_proj.weight', 'vision_model.encoder.layers.1.self_attn.out_proj.bias', 'vision_model.encoder.layers.23.mlp.fc1.bias', 'vision_model.encoder.layers.0.self_attn.v_proj.weight', 'vision_model.encoder.layers.15.layer_norm1.weight', 'vision_model.encoder.layers.13.self_attn.out_proj.weight', 'vision_model.encoder.layers.0.self_attn.k_proj.weight', 'vision_model.encoder.layers.22.mlp.fc1.bias', 'vision_model.encoder.layers.20.self_attn.v_proj.bias', 'vision_model.encoder.layers.18.layer_norm1.bias', 'vision_model.encoder.layers.9.self_attn.v_proj.bias', 'vision_model.encoder.layers.14.self_attn.out_proj.bias', 'vision_model.encoder.layers.10.self_attn.out_proj.weight', 'vision_model.encoder.layers.6.layer_norm2.weight', 'vision_model.encoder.layers.14.self_attn.v_proj.bias', 'vision_model.encoder.layers.16.mlp.fc1.bias', 'vision_model.encoder.layers.3.mlp.fc1.weight', 'vision_model.encoder.layers.12.mlp.fc1.bias', 'vision_model.encoder.layers.17.self_attn.out_proj.weight', 'vision_model.encoder.layers.8.self_attn.v_proj.weight', 'vision_model.encoder.layers.10.mlp.fc1.weight', 'vision_model.encoder.layers.10.self_attn.out_proj.bias', 'vision_model.encoder.layers.7.self_attn.q_proj.weight', 'vision_model.encoder.layers.7.self_attn.out_proj.weight', 'vision_model.encoder.layers.22.self_attn.out_proj.bias', 'vision_model.encoder.layers.17.self_attn.q_proj.bias', 'vision_model.encoder.layers.15.layer_norm2.bias', 'vision_model.encoder.layers.23.mlp.fc2.bias', 'vision_model.encoder.layers.10.layer_norm1.weight', 'vision_model.encoder.layers.4.self_attn.v_proj.weight', 'vision_model.encoder.layers.22.mlp.fc2.weight', 'vision_model.encoder.layers.13.mlp.fc1.weight', 'vision_model.encoder.layers.15.self_attn.out_proj.weight', 'vision_model.encoder.layers.18.mlp.fc2.bias', 'vision_model.encoder.layers.15.layer_norm1.bias', 'vision_model.encoder.layers.2.self_attn.v_proj.bias', 'vision_model.encoder.layers.4.self_attn.v_proj.bias', 'vision_model.encoder.layers.2.mlp.fc2.weight', 'vision_model.encoder.layers.19.mlp.fc2.weight', 'vision_model.encoder.layers.12.layer_norm1.weight', 'vision_model.encoder.layers.12.self_attn.out_proj.bias', 'vision_model.encoder.layers.13.self_attn.k_proj.bias', 'vision_model.encoder.layers.6.self_attn.out_proj.weight', 'vision_model.encoder.layers.23.layer_norm1.bias', 'vision_model.encoder.layers.1.self_attn.v_proj.weight', 'vision_model.encoder.layers.14.self_attn.v_proj.weight', 'vision_model.encoder.layers.7.self_attn.v_proj.bias', 'vision_model.encoder.layers.13.self_attn.v_proj.weight', 'vision_model.encoder.layers.11.mlp.fc2.weight', 'vision_model.encoder.layers.16.layer_norm1.weight', 'vision_model.encoder.layers.3.layer_norm1.weight', 'vision_model.encoder.layers.4.self_attn.out_proj.weight', 'vision_model.encoder.layers.7.mlp.fc1.bias', 'vision_model.encoder.layers.10.layer_norm1.bias', 'vision_model.encoder.layers.22.layer_norm1.weight', 'vision_model.encoder.layers.10.self_attn.q_proj.weight', 'vision_model.encoder.layers.7.mlp.fc2.weight', 'vision_model.encoder.layers.13.self_attn.out_proj.bias', 'vision_model.encoder.layers.6.self_attn.q_proj.weight', 'vision_model.encoder.layers.15.mlp.fc2.weight', 'vision_model.encoder.layers.6.layer_norm1.weight', 'vision_model.encoder.layers.7.mlp.fc2.bias', 'vision_model.encoder.layers.15.self_attn.v_proj.weight', 'vision_model.encoder.layers.7.self_attn.k_proj.weight', 'vision_model.encoder.layers.18.mlp.fc1.weight', 'vision_model.encoder.layers.12.mlp.fc2.bias', 'vision_model.encoder.layers.12.layer_norm1.bias', 'vision_model.encoder.layers.23.mlp.fc1.weight', 'vision_model.encoder.layers.20.mlp.fc2.weight', 'vision_model.encoder.layers.6.layer_norm2.bias', 'vision_model.encoder.layers.15.self_attn.k_proj.bias', 'vision_model.embeddings.position_embedding.weight', 'vision_model.encoder.layers.7.layer_norm1.weight', 'vision_model.encoder.layers.17.self_attn.k_proj.bias', 'vision_model.encoder.layers.2.layer_norm1.weight', 'vision_model.encoder.layers.0.layer_norm1.weight', 'vision_model.encoder.layers.11.self_attn.q_proj.bias', 'vision_model.encoder.layers.12.layer_norm2.weight', 'vision_model.encoder.layers.22.self_attn.v_proj.bias', 'vision_model.encoder.layers.23.self_attn.k_proj.weight', 'vision_model.encoder.layers.0.layer_norm1.bias', 'vision_model.encoder.layers.9.self_attn.v_proj.weight', 'vision_model.encoder.layers.21.self_attn.out_proj.bias', 'vision_model.encoder.layers.18.mlp.fc1.bias', 'vision_model.encoder.layers.4.self_attn.out_proj.bias', 'vision_model.encoder.layers.13.self_attn.v_proj.bias', 'vision_model.encoder.layers.6.self_attn.q_proj.bias', 'vision_model.encoder.layers.12.mlp.fc1.weight', 'vision_model.encoder.layers.23.self_attn.q_proj.bias', 'vision_model.encoder.layers.9.self_attn.k_proj.bias', 'vision_model.encoder.layers.21.self_attn.q_proj.bias', 'vision_model.encoder.layers.3.layer_norm2.bias', 'vision_model.encoder.layers.4.layer_norm1.weight', 'vision_model.encoder.layers.15.self_attn.q_proj.bias', 'vision_model.encoder.layers.11.mlp.fc2.bias', 'vision_model.encoder.layers.13.mlp.fc2.bias', 'vision_model.encoder.layers.17.layer_norm1.bias', 'vision_model.encoder.layers.13.layer_norm1.weight', 'vision_model.encoder.layers.1.layer_norm1.weight', 'vision_model.encoder.layers.16.self_attn.v_proj.bias', 'vision_model.encoder.layers.9.layer_norm2.weight', 'vision_model.encoder.layers.5.mlp.fc2.bias', 'vision_model.encoder.layers.21.self_attn.k_proj.weight', 'vision_model.encoder.layers.22.self_attn.out_proj.weight', 'vision_model.encoder.layers.3.self_attn.q_proj.bias', 'vision_model.encoder.layers.13.mlp.fc2.weight', 'vision_model.encoder.layers.20.layer_norm2.bias', 'vision_model.encoder.layers.19.self_attn.out_proj.bias', 'vision_model.encoder.layers.10.self_attn.k_proj.bias', 'vision_model.encoder.layers.12.self_attn.k_proj.weight', 'vision_model.encoder.layers.19.layer_norm1.bias', 'vision_model.encoder.layers.6.layer_norm1.bias', 'vision_model.encoder.layers.22.layer_norm2.weight', 'vision_model.encoder.layers.20.layer_norm1.bias', 'vision_model.encoder.layers.20.self_attn.v_proj.weight', 'vision_model.encoder.layers.15.mlp.fc1.weight', 'vision_model.encoder.layers.9.mlp.fc1.bias', 'vision_model.encoder.layers.20.mlp.fc2.bias', 'vision_model.encoder.layers.3.mlp.fc1.bias', 'vision_model.encoder.layers.4.layer_norm1.bias', 'vision_model.encoder.layers.21.self_attn.k_proj.bias', 'vision_model.encoder.layers.17.layer_norm2.weight', 'vision_model.encoder.layers.10.self_attn.k_proj.weight', 'vision_model.encoder.layers.8.self_attn.k_proj.weight', 'vision_model.encoder.layers.7.layer_norm2.weight', 'vision_model.encoder.layers.10.mlp.fc2.bias', 'vision_model.encoder.layers.5.layer_norm1.weight', 'vision_model.encoder.layers.9.self_attn.out_proj.bias', 'vision_model.encoder.layers.3.self_attn.v_proj.bias', 'vision_model.encoder.layers.8.layer_norm1.weight', 'vision_model.encoder.layers.5.mlp.fc2.weight', 'vision_model.encoder.layers.0.layer_norm2.weight', 'vision_model.encoder.layers.5.self_attn.out_proj.bias', 'vision_model.encoder.layers.2.self_attn.k_proj.weight', 'vision_model.encoder.layers.14.mlp.fc1.weight', 'vision_model.encoder.layers.22.mlp.fc1.weight', 'vision_model.encoder.layers.0.self_attn.k_proj.bias', 'vision_model.encoder.layers.22.layer_norm1.bias', 'vision_model.encoder.layers.22.self_attn.v_proj.weight', 'vision_model.encoder.layers.4.mlp.fc2.bias', 'vision_model.encoder.layers.21.layer_norm1.weight', 'vision_model.encoder.layers.11.self_attn.v_proj.weight', 'vision_model.encoder.layers.6.mlp.fc2.bias', 'vision_model.encoder.layers.23.self_attn.out_proj.bias', 'vision_model.encoder.layers.21.self_attn.out_proj.weight', 'vision_model.encoder.layers.5.self_attn.k_proj.bias', 'vision_model.encoder.layers.7.mlp.fc1.weight', 'vision_model.encoder.layers.18.layer_norm2.weight', 'vision_model.encoder.layers.22.self_attn.q_proj.bias', 'vision_model.encoder.layers.22.self_attn.k_proj.weight', 'vision_model.encoder.layers.15.layer_norm2.weight', 'vision_model.encoder.layers.1.mlp.fc2.bias', 'vision_model.encoder.layers.8.self_attn.v_proj.bias', 'vision_model.encoder.layers.16.mlp.fc1.weight', 'vision_model.encoder.layers.9.self_attn.q_proj.weight', 'vision_model.encoder.layers.8.layer_norm2.bias', 'vision_model.encoder.layers.3.self_attn.out_proj.weight', 'vision_model.encoder.layers.22.self_attn.k_proj.bias', 'vision_model.encoder.layers.11.layer_norm1.weight', 'vision_model.encoder.layers.11.mlp.fc1.weight', 'vision_model.encoder.layers.21.self_attn.v_proj.bias', 'vision_model.pre_layrnorm.weight', 'vision_model.encoder.layers.14.self_attn.k_proj.bias', 'vision_model.encoder.layers.17.mlp.fc2.bias', 'vision_model.embeddings.class_embedding', 'vision_model.encoder.layers.14.self_attn.out_proj.weight', 'vision_model.encoder.layers.2.self_attn.v_proj.weight', 'vision_model.encoder.layers.6.mlp.fc1.weight', 'vision_model.encoder.layers.22.self_attn.q_proj.weight', 'vision_model.encoder.layers.23.self_attn.out_proj.weight', 'vision_model.encoder.layers.4.layer_norm2.bias', 'vision_model.encoder.layers.15.self_attn.q_proj.weight', 'vision_model.encoder.layers.19.mlp.fc1.weight', 'vision_model.encoder.layers.8.self_attn.k_proj.bias', 'vision_model.encoder.layers.2.layer_norm2.bias', 'vision_model.encoder.layers.5.self_attn.v_proj.weight', 'vision_model.encoder.layers.2.self_attn.out_proj.weight', 'vision_model.encoder.layers.20.layer_norm2.weight', 'vision_model.encoder.layers.1.layer_norm2.weight', 'vision_model.encoder.layers.9.layer_norm1.weight', 'vision_model.encoder.layers.15.self_attn.k_proj.weight', 'vision_model.encoder.layers.4.layer_norm2.weight', 'vision_model.encoder.layers.23.layer_norm2.bias', 'vision_model.encoder.layers.2.mlp.fc1.weight', 'vision_model.encoder.layers.21.layer_norm2.bias', 'vision_model.encoder.layers.11.self_attn.k_proj.bias', 'vision_model.encoder.layers.17.self_attn.v_proj.weight', 'vision_model.encoder.layers.17.layer_norm1.weight', 'vision_model.encoder.layers.3.self_attn.k_proj.bias', 'vision_model.encoder.layers.21.layer_norm1.bias', 'vision_model.encoder.layers.21.mlp.fc1.bias', 'vision_model.encoder.layers.0.layer_norm2.bias', 'vision_model.embeddings.position_ids', 'vision_model.encoder.layers.11.mlp.fc1.bias', 'vision_model.encoder.layers.17.self_attn.q_proj.weight', 'vision_model.encoder.layers.4.self_attn.q_proj.weight', 'vision_model.encoder.layers.20.self_attn.out_proj.bias', 'vision_model.encoder.layers.21.self_attn.q_proj.weight', 'vision_model.encoder.layers.1.mlp.fc1.bias', 'vision_model.encoder.layers.17.mlp.fc2.weight', 'vision_model.encoder.layers.3.self_attn.out_proj.bias', 'vision_model.encoder.layers.9.mlp.fc1.weight', 'vision_model.encoder.layers.0.self_attn.out_proj.bias', 'vision_model.encoder.layers.19.self_attn.k_proj.bias', 'vision_model.encoder.layers.8.self_attn.q_proj.bias', 'vision_model.encoder.layers.21.layer_norm2.weight', 'vision_model.encoder.layers.23.self_attn.v_proj.bias', 'vision_model.encoder.layers.11.self_attn.out_proj.weight', 'vision_model.encoder.layers.3.self_attn.q_proj.weight', 'vision_model.encoder.layers.9.self_attn.q_proj.bias', 'vision_model.encoder.layers.3.mlp.fc2.bias', 'vision_model.encoder.layers.0.mlp.fc2.bias', 'vision_model.encoder.layers.5.layer_norm1.bias', 'vision_model.encoder.layers.16.mlp.fc2.weight', 'vision_model.encoder.layers.8.self_attn.out_proj.weight', 'vision_model.encoder.layers.18.self_attn.v_proj.weight', 'vision_model.encoder.layers.18.self_attn.out_proj.bias', 'vision_model.encoder.layers.10.mlp.fc2.weight', 'vision_model.embeddings.patch_embedding.weight', 'vision_model.encoder.layers.20.self_attn.k_proj.bias', 'vision_model.encoder.layers.11.layer_norm1.bias', 'vision_model.encoder.layers.3.self_attn.v_proj.weight', 'vision_model.encoder.layers.12.self_attn.q_proj.weight', 'vision_model.encoder.layers.4.self_attn.k_proj.bias', 'vision_model.encoder.layers.0.self_attn.q_proj.weight', 'vision_model.encoder.layers.7.self_attn.q_proj.bias', 'vision_model.encoder.layers.20.self_attn.out_proj.weight', 'vision_model.encoder.layers.15.mlp.fc2.bias', 'vision_model.encoder.layers.7.self_attn.k_proj.bias', 'vision_model.encoder.layers.13.layer_norm1.bias', 'vision_model.encoder.layers.7.layer_norm2.bias', 'vision_model.encoder.layers.16.layer_norm2.weight', 'vision_model.encoder.layers.1.self_attn.v_proj.bias', 'vision_model.encoder.layers.21.self_attn.v_proj.weight', 'vision_model.encoder.layers.19.self_attn.k_proj.weight', 'vision_model.encoder.layers.5.self_attn.out_proj.weight', 'vision_model.encoder.layers.12.self_attn.q_proj.bias', 'vision_model.encoder.layers.6.mlp.fc2.weight', 'vision_model.encoder.layers.12.self_attn.v_proj.bias', 'vision_model.encoder.layers.8.layer_norm1.bias', 'vision_model.encoder.layers.2.self_attn.k_proj.bias', 'vision_model.encoder.layers.5.self_attn.q_proj.bias', 'vision_model.encoder.layers.6.self_attn.k_proj.weight', 'vision_model.encoder.layers.9.mlp.fc2.bias', 'vision_model.encoder.layers.2.self_attn.out_proj.bias']
+- This IS expected if you are initializing CLIPTextModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing CLIPTextModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Loading model from /home/stud/xiec/workarea/Dreambooth-Stable-Diffusion/logdir/cat2022-12-18T10-38-11_dreambooth-training/checkpoints/last.ckpt
+Global Step: 800
+LatentDiffusion: Running in eps-prediction mode
+DiffusionWrapper has 859.52 M params.
+making attention of type 'vanilla' with 512 in_channels
+Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
+making attention of type 'vanilla' with 512 in_channels
+Sampling:   0%|          | 0/4 [00:00<?, ?it/s]
+data:   0%|          | 0/1 [00:00<?, ?it/s][AData shape for DDIM sampling is (1, 4, 64, 64), eta 0.0
+Running DDIM Sampling with 84 timesteps
+
+
+DDIM Sampler:   0%|          | 0/84 [00:00<?, ?it/s][A[A
+
+DDIM Sampler:   1%|          | 1/84 [00:01<01:50,  1.34s/it][A[A
+
+DDIM Sampler:   2%|▏         | 2/84 [00:01<00:51,  1.59it/s][A[A
+
+DDIM Sampler:   4%|▎         | 3/84 [00:01<00:32,  2.51it/s][A[A
+
+DDIM Sampler:   5%|▍         | 4/84 [00:01<00:23,  3.45it/s][A[A
+
+DDIM Sampler:   6%|▌         | 5/84 [00:01<00:18,  4.36it/s][A[A
+
+DDIM Sampler:   7%|▋         | 6/84 [00:01<00:15,  5.19it/s][A[A
+
+DDIM Sampler:   8%|▊         | 7/84 [00:02<00:13,  5.89it/s][A[A
+
+DDIM Sampler:  10%|▉         | 8/84 [00:02<00:11,  6.47it/s][A[A
+
+DDIM Sampler:  11%|█         | 9/84 [00:02<00:10,  6.92it/s][A[A
+
+DDIM Sampler:  12%|█▏        | 10/84 [00:02<00:10,  7.26it/s][A[A
+
+DDIM Sampler:  13%|█▎        | 11/84 [00:02<00:09,  7.52it/s][A[A
+
+DDIM Sampler:  14%|█▍        | 12/84 [00:02<00:09,  7.70it/s][A[A
+
+DDIM Sampler:  15%|█▌        | 13/84 [00:02<00:09,  7.84it/s][A[A
+
+DDIM Sampler:  17%|█▋        | 14/84 [00:02<00:08,  7.94it/s][A[A
+
+DDIM Sampler:  18%|█▊        | 15/84 [00:03<00:08,  8.01it/s][A[A
+
+DDIM Sampler:  19%|█▉        | 16/84 [00:03<00:08,  8.06it/s][A[A
+
+DDIM Sampler:  20%|██        | 17/84 [00:03<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  21%|██▏       | 18/84 [00:03<00:08,  8.12it/s][A[A
+
+DDIM Sampler:  23%|██▎       | 19/84 [00:03<00:07,  8.13it/s][A[A
+
+DDIM Sampler:  24%|██▍       | 20/84 [00:03<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  25%|██▌       | 21/84 [00:03<00:07,  8.15it/s][A[A
+
+DDIM Sampler:  26%|██▌       | 22/84 [00:03<00:07,  8.16it/s][A[A
+
+DDIM Sampler:  27%|██▋       | 23/84 [00:04<00:07,  8.16it/s][A[A
+
+DDIM Sampler:  29%|██▊       | 24/84 [00:04<00:07,  8.17it/s][A[A
+
+DDIM Sampler:  30%|██▉       | 25/84 [00:04<00:07,  8.17it/s][A[A
+
+DDIM Sampler:  31%|███       | 26/84 [00:04<00:07,  8.17it/s][A[A
+
+DDIM Sampler:  32%|███▏      | 27/84 [00:04<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  33%|███▎      | 28/84 [00:04<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  35%|███▍      | 29/84 [00:04<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  36%|███▌      | 30/84 [00:04<00:06,  8.16it/s][A[A
+
+DDIM Sampler:  37%|███▋      | 31/84 [00:05<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  38%|███▊      | 32/84 [00:05<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  39%|███▉      | 33/84 [00:05<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  40%|████      | 34/84 [00:05<00:06,  8.17it/s][A[A
+
+DDIM Sampler:  42%|████▏     | 35/84 [00:05<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  43%|████▎     | 36/84 [00:05<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  44%|████▍     | 37/84 [00:05<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  45%|████▌     | 38/84 [00:05<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  46%|████▋     | 39/84 [00:06<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  48%|████▊     | 40/84 [00:06<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  49%|████▉     | 41/84 [00:06<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  50%|█████     | 42/84 [00:06<00:05,  8.17it/s][A[A
+
+DDIM Sampler:  51%|█████     | 43/84 [00:06<00:05,  8.16it/s][A[A
+
+DDIM Sampler:  52%|█████▏    | 44/84 [00:06<00:04,  8.16it/s][A[A
+
+DDIM Sampler:  54%|█████▎    | 45/84 [00:06<00:04,  8.16it/s][A[A
+
+DDIM Sampler:  55%|█████▍    | 46/84 [00:06<00:04,  8.16it/s][A[A
+
+DDIM Sampler:  56%|█████▌    | 47/84 [00:06<00:04,  8.16it/s][A[A
+
+DDIM Sampler:  57%|█████▋    | 48/84 [00:07<00:04,  8.16it/s][A[A
+
+DDIM Sampler:  58%|█████▊    | 49/84 [00:07<00:04,  8.15it/s][A[A
+
+DDIM Sampler:  60%|█████▉    | 50/84 [00:07<00:04,  8.15it/s][A[A
+
+DDIM Sampler:  61%|██████    | 51/84 [00:07<00:04,  8.15it/s][A[A
+
+DDIM Sampler:  62%|██████▏   | 52/84 [00:07<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  63%|██████▎   | 53/84 [00:07<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  64%|██████▍   | 54/84 [00:07<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  65%|██████▌   | 55/84 [00:07<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  67%|██████▋   | 56/84 [00:08<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  68%|██████▊   | 57/84 [00:08<00:03,  8.16it/s][A[A
+
+DDIM Sampler:  69%|██████▉   | 58/84 [00:08<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  70%|███████   | 59/84 [00:08<00:03,  8.15it/s][A[A
+
+DDIM Sampler:  71%|███████▏  | 60/84 [00:08<00:02,  8.15it/s][A[A
+
+DDIM Sampler:  73%|███████▎  | 61/84 [00:08<00:02,  8.15it/s][A[A
+
+DDIM Sampler:  74%|███████▍  | 62/84 [00:08<00:02,  8.15it/s][A[A
+
+DDIM Sampler:  75%|███████▌  | 63/84 [00:08<00:02,  8.15it/s][A[A
+
+DDIM Sampler:  76%|███████▌  | 64/84 [00:09<00:02,  8.15it/s][A[A
+
+DDIM Sampler:  77%|███████▋  | 65/84 [00:09<00:02,  8.14it/s][A[A
+
+DDIM Sampler:  79%|███████▊  | 66/84 [00:09<00:02,  8.14it/s][A[A
+
+DDIM Sampler:  80%|███████▉  | 67/84 [00:09<00:02,  8.15it/s][A[A
+
+DDIM Sampler:  81%|████████  | 68/84 [00:09<00:01,  8.15it/s][A[A
+
+DDIM Sampler:  82%|████████▏ | 69/84 [00:09<00:01,  8.14it/s][A[A
+
+DDIM Sampler:  83%|████████▎ | 70/84 [00:09<00:01,  8.14it/s][A[A
+
+DDIM Sampler:  85%|████████▍ | 71/84 [00:09<00:01,  8.14it/s][A[A
+
+DDIM Sampler:  86%|████████▌ | 72/84 [00:10<00:01,  8.14it/s][A[A
+
+DDIM Sampler:  87%|████████▋ | 73/84 [00:10<00:01,  8.14it/s][A[A
+
+DDIM Sampler:  88%|████████▊ | 74/84 [00:10<00:01,  8.14it/s][A[A
+
+DDIM Sampler:  89%|████████▉ | 75/84 [00:10<00:01,  8.13it/s][A[A
+
+DDIM Sampler:  90%|█████████ | 76/84 [00:10<00:00,  8.13it/s][A[A
+
+DDIM Sampler:  92%|█████████▏| 77/84 [00:10<00:00,  8.13it/s][A[A
+
+DDIM Sampler:  93%|█████████▎| 78/84 [00:10<00:00,  8.13it/s][A[A
+
+DDIM Sampler:  94%|█████████▍| 79/84 [00:10<00:00,  8.13it/s][A[A
+
+DDIM Sampler:  95%|█████████▌| 80/84 [00:11<00:00,  8.12it/s][A[A
+
+DDIM Sampler:  96%|█████████▋| 81/84 [00:11<00:00,  8.12it/s][A[A
+
+DDIM Sampler:  98%|█████████▊| 82/84 [00:11<00:00,  8.12it/s][A[A
+
+DDIM Sampler:  99%|█████████▉| 83/84 [00:11<00:00,  8.12it/s][A[A
+
+DDIM Sampler: 100%|██████████| 84/84 [00:11<00:00,  8.12it/s][A[ADDIM Sampler: 100%|██████████| 84/84 [00:11<00:00,  7.29it/s]
+
+data: 100%|██████████| 1/1 [10:27<00:00, 627.20s/it][Adata: 100%|██████████| 1/1 [10:27<00:00, 627.21s/it]
+Sampling:  25%|██▌       | 1/4 [10:27<31:21, 627.21s/it]
+data:   0%|          | 0/1 [00:00<?, ?it/s][AData shape for DDIM sampling is (1, 4, 64, 64), eta 0.0
+Running DDIM Sampling with 84 timesteps
+
+
+DDIM Sampler:   0%|          | 0/84 [00:00<?, ?it/s][A[A
+
+DDIM Sampler:   1%|          | 1/84 [00:00<00:10,  8.15it/s][A[A
+
+DDIM Sampler:   2%|▏         | 2/84 [00:00<00:10,  8.14it/s][A[A
+
+DDIM Sampler:   4%|▎         | 3/84 [00:00<00:09,  8.14it/s][A[A
+
+DDIM Sampler:   5%|▍         | 4/84 [00:00<00:09,  8.13it/s][A[A
+
+DDIM Sampler:   6%|▌         | 5/84 [00:00<00:09,  8.13it/s][A[A
+
+DDIM Sampler:   7%|▋         | 6/84 [00:00<00:09,  8.13it/s][A[A
+
+DDIM Sampler:   8%|▊         | 7/84 [00:00<00:09,  8.13it/s][A[A
+
+DDIM Sampler:  10%|▉         | 8/84 [00:00<00:09,  8.13it/s][A[A
+
+DDIM Sampler:  11%|█         | 9/84 [00:01<00:09,  8.13it/s][A[A
+
+DDIM Sampler:  12%|█▏        | 10/84 [00:01<00:09,  8.14it/s][A[A
+
+DDIM Sampler:  13%|█▎        | 11/84 [00:01<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  14%|█▍        | 12/84 [00:01<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  15%|█▌        | 13/84 [00:01<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  17%|█▋        | 14/84 [00:01<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  18%|█▊        | 15/84 [00:01<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  19%|█▉        | 16/84 [00:01<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  20%|██        | 17/84 [00:02<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  21%|██▏       | 18/84 [00:02<00:08,  8.14it/s][A[A
+
+DDIM Sampler:  23%|██▎       | 19/84 [00:02<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  24%|██▍       | 20/84 [00:02<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  25%|██▌       | 21/84 [00:02<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  26%|██▌       | 22/84 [00:02<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  27%|██▋       | 23/84 [00:02<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  29%|██▊       | 24/84 [00:02<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  30%|██▉       | 25/84 [00:03<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  31%|███       | 26/84 [00:03<00:07,  8.14it/s][A[A
+
+DDIM Sampler:  32%|███▏      | 27/84 [00:03<00:07,  8.13it/s][A[A
+
+DDIM Sampler:  33%|███▎      | 28/84 [00:03<00:06,  8.13it/s][A[A
+
+DDIM Sampler:  35%|███▍      | 29/84 [00:03<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  36%|███▌      | 30/84 [00:03<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  37%|███▋      | 31/84 [00:03<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  38%|███▊      | 32/84 [00:03<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  39%|███▉      | 33/84 [00:04<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  40%|████      | 34/84 [00:04<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  42%|████▏     | 35/84 [00:04<00:06,  8.14it/s][A[A
+
+DDIM Sampler:  43%|████▎     | 36/84 [00:04<00:05,  8.14it/s][A[A
+
+DDIM Sampler:  44%|████▍     | 37/84 [00:04<00:05,  8.14it/s][A[A
+
+DDIM Sampler:  45%|████▌     | 38/84 [00:04<00:05,  8.14it/s][A[A
+
+DDIM Sampler:  46%|████▋     | 39/84 [00:04<00:05,  8.13it/s][A[A
+
+DDIM Sampler:  48%|████▊     | 40/84 [00:04<00:05,  8.13it/s][A[A
+
+DDIM Sampler:  49%|████▉     | 41/84 [00:05<00:05,  8.14it/s][A[A
+
+DDIM Sampler:  50%|█████     | 42/84 [00:05<00:05,  8.14it/s][A[A
+
+DDIM Sampler:  51%|█████     | 43/84 [00:05<00:05,  8.14it/s][A[A
+
+DDIM Sampler:  52%|█████▏    | 44/84 [00:05<00:04,  8.14it/s][A[A
+
+DDIM Sampler:  54%|█████▎    | 45/84 [00:05<00:04,  8.14it/s][A[A
+
+DDIM Sampler:  55%|█████▍    | 46/84 [00:05<00:04,  8.14it/s][A[A
+
+DDIM Sampler:  56%|█████▌    | 47/84 [00:05<00:04,  8.14it/s][A[A
+
+DDIM Sampler:  57%|█████▋    | 48/84 [00:05<00:04,  8.13it/s][A[A
+
+DDIM Sampler:  58%|█████▊    | 49/84 [00:06<00:04,  8.13it/s][A[A
+
+DDIM Sampler:  60%|█████▉    | 50/84 [00:06<00:04,  8.13it/s][A[A
+
+DDIM Sampler:  61%|██████    | 51/84 [00:06<00:04,  8.13it/s][A[A
+
+DDIM Sampler:  62%|██████▏   | 52/84 [00:06<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  63%|██████▎   | 53/84 [00:06<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  64%|██████▍   | 54/84 [00:06<00:03,  8.13it/s][A[A
+
+DDIM Sampler:  65%|██████▌   | 55/84 [00:06<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  67%|██████▋   | 56/84 [00:06<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  68%|██████▊   | 57/84 [00:07<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  69%|██████▉   | 58/84 [00:07<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  70%|███████   | 59/84 [00:07<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  71%|███████▏  | 60/84 [00:07<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  73%|███████▎  | 61/84 [00:07<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  74%|███████▍  | 62/84 [00:07<00:02,  8.11it/s][A[A
+
+DDIM Sampler:  75%|███████▌  | 63/84 [00:07<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  76%|███████▌  | 64/84 [00:07<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  77%|███████▋  | 65/84 [00:07<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  79%|███████▊  | 66/84 [00:08<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  80%|███████▉  | 67/84 [00:08<00:02,  8.12it/s][A[A
+
+DDIM Sampler:  81%|████████  | 68/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  82%|████████▏ | 69/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  83%|████████▎ | 70/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  85%|████████▍ | 71/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  86%|████████▌ | 72/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  87%|████████▋ | 73/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  88%|████████▊ | 74/84 [00:09<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  89%|████████▉ | 75/84 [00:09<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  90%|█████████ | 76/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  92%|█████████▏| 77/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  93%|█████████▎| 78/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  94%|█████████▍| 79/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  95%|█████████▌| 80/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  96%|█████████▋| 81/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  98%|█████████▊| 82/84 [00:10<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  99%|█████████▉| 83/84 [00:10<00:00,  8.10it/s][A[A
+
+DDIM Sampler: 100%|██████████| 84/84 [00:10<00:00,  8.09it/s][A[ADDIM Sampler: 100%|██████████| 84/84 [00:10<00:00,  8.13it/s]
+
+data: 100%|██████████| 1/1 [00:10<00:00, 10.48s/it][Adata: 100%|██████████| 1/1 [00:10<00:00, 10.48s/it]
+Sampling:  50%|█████     | 2/4 [10:37<08:48, 264.43s/it]
+data:   0%|          | 0/1 [00:00<?, ?it/s][AData shape for DDIM sampling is (1, 4, 64, 64), eta 0.0
+Running DDIM Sampling with 84 timesteps
+
+
+DDIM Sampler:   0%|          | 0/84 [00:00<?, ?it/s][A[A
+
+DDIM Sampler:   1%|          | 1/84 [00:00<00:10,  8.11it/s][A[A
+
+DDIM Sampler:   2%|▏         | 2/84 [00:00<00:10,  8.11it/s][A[A
+
+DDIM Sampler:   4%|▎         | 3/84 [00:00<00:09,  8.11it/s][A[A
+
+DDIM Sampler:   5%|▍         | 4/84 [00:00<00:09,  8.11it/s][A[A
+
+DDIM Sampler:   6%|▌         | 5/84 [00:00<00:09,  8.11it/s][A[A
+
+DDIM Sampler:   7%|▋         | 6/84 [00:00<00:09,  8.11it/s][A[A
+
+DDIM Sampler:   8%|▊         | 7/84 [00:00<00:09,  8.11it/s][A[A
+
+DDIM Sampler:  10%|▉         | 8/84 [00:00<00:09,  8.10it/s][A[A
+
+DDIM Sampler:  11%|█         | 9/84 [00:01<00:09,  8.10it/s][A[A
+
+DDIM Sampler:  12%|█▏        | 10/84 [00:01<00:09,  8.09it/s][A[A
+
+DDIM Sampler:  13%|█▎        | 11/84 [00:01<00:09,  8.09it/s][A[A
+
+DDIM Sampler:  14%|█▍        | 12/84 [00:01<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  15%|█▌        | 13/84 [00:01<00:08,  8.09it/s][A[A
+
+DDIM Sampler:  17%|█▋        | 14/84 [00:01<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  18%|█▊        | 15/84 [00:01<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  19%|█▉        | 16/84 [00:01<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  20%|██        | 17/84 [00:02<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  21%|██▏       | 18/84 [00:02<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  23%|██▎       | 19/84 [00:02<00:08,  8.10it/s][A[A
+
+DDIM Sampler:  24%|██▍       | 20/84 [00:02<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  25%|██▌       | 21/84 [00:02<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  26%|██▌       | 22/84 [00:02<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  27%|██▋       | 23/84 [00:02<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  29%|██▊       | 24/84 [00:02<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  30%|██▉       | 25/84 [00:03<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  31%|███       | 26/84 [00:03<00:07,  8.12it/s][A[A
+
+DDIM Sampler:  32%|███▏      | 27/84 [00:03<00:07,  8.11it/s][A[A
+
+DDIM Sampler:  33%|███▎      | 28/84 [00:03<00:06,  8.12it/s][A[A
+
+DDIM Sampler:  35%|███▍      | 29/84 [00:03<00:06,  8.11it/s][A[A
+
+DDIM Sampler:  36%|███▌      | 30/84 [00:03<00:06,  8.11it/s][A[A
+
+DDIM Sampler:  37%|███▋      | 31/84 [00:03<00:06,  8.12it/s][A[A
+
+DDIM Sampler:  38%|███▊      | 32/84 [00:03<00:06,  8.12it/s][A[A
+
+DDIM Sampler:  39%|███▉      | 33/84 [00:04<00:06,  8.12it/s][A[A
+
+DDIM Sampler:  40%|████      | 34/84 [00:04<00:06,  8.12it/s][A[A
+
+DDIM Sampler:  42%|████▏     | 35/84 [00:04<00:06,  8.12it/s][A[A
+
+DDIM Sampler:  43%|████▎     | 36/84 [00:04<00:05,  8.12it/s][A[A
+
+DDIM Sampler:  44%|████▍     | 37/84 [00:04<00:05,  8.12it/s][A[A
+
+DDIM Sampler:  45%|████▌     | 38/84 [00:04<00:05,  8.11it/s][A[A
+
+DDIM Sampler:  46%|████▋     | 39/84 [00:04<00:05,  8.11it/s][A[A
+
+DDIM Sampler:  48%|████▊     | 40/84 [00:04<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  49%|████▉     | 41/84 [00:05<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  50%|█████     | 42/84 [00:05<00:05,  8.11it/s][A[A
+
+DDIM Sampler:  51%|█████     | 43/84 [00:05<00:05,  8.11it/s][A[A
+
+DDIM Sampler:  52%|█████▏    | 44/84 [00:05<00:04,  8.11it/s][A[A
+
+DDIM Sampler:  54%|█████▎    | 45/84 [00:05<00:04,  8.11it/s][A[A
+
+DDIM Sampler:  55%|█████▍    | 46/84 [00:05<00:04,  8.12it/s][A[A
+
+DDIM Sampler:  56%|█████▌    | 47/84 [00:05<00:04,  8.12it/s][A[A
+
+DDIM Sampler:  57%|█████▋    | 48/84 [00:05<00:04,  8.11it/s][A[A
+
+DDIM Sampler:  58%|█████▊    | 49/84 [00:06<00:04,  8.11it/s][A[A
+
+DDIM Sampler:  60%|█████▉    | 50/84 [00:06<00:04,  8.12it/s][A[A
+
+DDIM Sampler:  61%|██████    | 51/84 [00:06<00:04,  8.11it/s][A[A
+
+DDIM Sampler:  62%|██████▏   | 52/84 [00:06<00:03,  8.11it/s][A[A
+
+DDIM Sampler:  63%|██████▎   | 53/84 [00:06<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  64%|██████▍   | 54/84 [00:06<00:03,  8.12it/s][A[A
+
+DDIM Sampler:  65%|██████▌   | 55/84 [00:06<00:03,  8.11it/s][A[A
+
+DDIM Sampler:  67%|██████▋   | 56/84 [00:06<00:03,  8.11it/s][A[A
+
+DDIM Sampler:  68%|██████▊   | 57/84 [00:07<00:03,  8.11it/s][A[A
+
+DDIM Sampler:  69%|██████▉   | 58/84 [00:07<00:03,  8.11it/s][A[A
+
+DDIM Sampler:  70%|███████   | 59/84 [00:07<00:03,  8.11it/s][A[A
+
+DDIM Sampler:  71%|███████▏  | 60/84 [00:07<00:02,  8.11it/s][A[A
+
+DDIM Sampler:  73%|███████▎  | 61/84 [00:07<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  74%|███████▍  | 62/84 [00:07<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  75%|███████▌  | 63/84 [00:07<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  76%|███████▌  | 64/84 [00:07<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  77%|███████▋  | 65/84 [00:08<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  79%|███████▊  | 66/84 [00:08<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  80%|███████▉  | 67/84 [00:08<00:02,  8.11it/s][A[A
+
+DDIM Sampler:  81%|████████  | 68/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  82%|████████▏ | 69/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  83%|████████▎ | 70/84 [00:08<00:01,  8.11it/s][A[A
+
+DDIM Sampler:  85%|████████▍ | 71/84 [00:08<00:01,  8.10it/s][A[A
+
+DDIM Sampler:  86%|████████▌ | 72/84 [00:08<00:01,  8.10it/s][A[A
+
+DDIM Sampler:  87%|████████▋ | 73/84 [00:09<00:01,  8.10it/s][A[A
+
+DDIM Sampler:  88%|████████▊ | 74/84 [00:09<00:01,  8.10it/s][A[A
+
+DDIM Sampler:  89%|████████▉ | 75/84 [00:09<00:01,  8.10it/s][A[A
+
+DDIM Sampler:  90%|█████████ | 76/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  92%|█████████▏| 77/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  93%|█████████▎| 78/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  94%|█████████▍| 79/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  95%|█████████▌| 80/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  96%|█████████▋| 81/84 [00:09<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  98%|█████████▊| 82/84 [00:10<00:00,  8.10it/s][A[A
+
+DDIM Sampler:  99%|█████████▉| 83/84 [00:10<00:00,  8.09it/s][A[A
+
+DDIM Sampler: 100%|██████████| 84/84 [00:10<00:00,  8.09it/s][A[ADDIM Sampler: 100%|██████████| 84/84 [00:10<00:00,  8.11it/s]
+
+data: 100%|██████████| 1/1 [00:10<00:00, 10.51s/it][Adata: 100%|██████████| 1/1 [00:10<00:00, 10.51s/it]
+Sampling:  75%|███████▌  | 3/4 [10:48<02:28, 148.48s/it]
+data:   0%|          | 0/1 [00:00<?, ?it/s][AData shape for DDIM sampling is (1, 4, 64, 64), eta 0.0
+Running DDIM Sampling with 84 timesteps
+
+
+DDIM Sampler:   0%|          | 0/84 [00:00<?, ?it/s][A[A
+
+DDIM Sampler:   1%|          | 1/84 [00:00<00:10,  8.12it/s][A[A
+
+DDIM Sampler:   2%|▏         | 2/84 [00:00<00:10,  8.10it/s][A[A
+
+DDIM Sampler:   4%|▎         | 3/84 [00:00<00:10,  8.09it/s][A[A
+
+DDIM Sampler:   5%|▍         | 4/84 [00:00<00:09,  8.09it/s][A[A
+
+DDIM Sampler:   6%|▌         | 5/84 [00:00<00:09,  8.09it/s][A[A
+
+DDIM Sampler:   7%|▋         | 6/84 [00:00<00:09,  8.08it/s][A[A
+
+DDIM Sampler:   8%|▊         | 7/84 [00:00<00:09,  8.09it/s][A[A
+
+DDIM Sampler:  10%|▉         | 8/84 [00:00<00:09,  8.08it/s][A[A
+
+DDIM Sampler:  11%|█         | 9/84 [00:01<00:09,  8.08it/s][A[A
+
+DDIM Sampler:  12%|█▏        | 10/84 [00:01<00:09,  8.08it/s][A[A
+
+DDIM Sampler:  13%|█▎        | 11/84 [00:01<00:09,  8.08it/s][A[A
+
+DDIM Sampler:  14%|█▍        | 12/84 [00:01<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  15%|█▌        | 13/84 [00:01<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  17%|█▋        | 14/84 [00:01<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  18%|█▊        | 15/84 [00:01<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  19%|█▉        | 16/84 [00:01<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  20%|██        | 17/84 [00:02<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  21%|██▏       | 18/84 [00:02<00:08,  8.08it/s][A[A
+
+DDIM Sampler:  23%|██▎       | 19/84 [00:02<00:08,  8.09it/s][A[A
+
+DDIM Sampler:  24%|██▍       | 20/84 [00:02<00:07,  8.09it/s][A[A
+
+DDIM Sampler:  25%|██▌       | 21/84 [00:02<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  26%|██▌       | 22/84 [00:02<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  27%|██▋       | 23/84 [00:02<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  29%|██▊       | 24/84 [00:02<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  30%|██▉       | 25/84 [00:03<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  31%|███       | 26/84 [00:03<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  32%|███▏      | 27/84 [00:03<00:07,  8.10it/s][A[A
+
+DDIM Sampler:  33%|███▎      | 28/84 [00:03<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  35%|███▍      | 29/84 [00:03<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  36%|███▌      | 30/84 [00:03<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  37%|███▋      | 31/84 [00:03<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  38%|███▊      | 32/84 [00:03<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  39%|███▉      | 33/84 [00:04<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  40%|████      | 34/84 [00:04<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  42%|████▏     | 35/84 [00:04<00:06,  8.10it/s][A[A
+
+DDIM Sampler:  43%|████▎     | 36/84 [00:04<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  44%|████▍     | 37/84 [00:04<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  45%|████▌     | 38/84 [00:04<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  46%|████▋     | 39/84 [00:04<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  48%|████▊     | 40/84 [00:04<00:05,  8.09it/s][A[A
+
+DDIM Sampler:  49%|████▉     | 41/84 [00:05<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  50%|█████     | 42/84 [00:05<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  51%|█████     | 43/84 [00:05<00:05,  8.10it/s][A[A
+
+DDIM Sampler:  52%|█████▏    | 44/84 [00:05<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  54%|█████▎    | 45/84 [00:05<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  55%|█████▍    | 46/84 [00:05<00:04,  8.11it/s][A[A
+
+DDIM Sampler:  56%|█████▌    | 47/84 [00:05<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  57%|█████▋    | 48/84 [00:05<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  58%|█████▊    | 49/84 [00:06<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  60%|█████▉    | 50/84 [00:06<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  61%|██████    | 51/84 [00:06<00:04,  8.10it/s][A[A
+
+DDIM Sampler:  62%|██████▏   | 52/84 [00:06<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  63%|██████▎   | 53/84 [00:06<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  64%|██████▍   | 54/84 [00:06<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  65%|██████▌   | 55/84 [00:06<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  67%|██████▋   | 56/84 [00:06<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  68%|██████▊   | 57/84 [00:07<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  69%|██████▉   | 58/84 [00:07<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  70%|███████   | 59/84 [00:07<00:03,  8.10it/s][A[A
+
+DDIM Sampler:  71%|███████▏  | 60/84 [00:07<00:02,  8.10it/s][A[A
+
+DDIM Sampler:  73%|███████▎  | 61/84 [00:07<00:02,  8.09it/s][A[A
+
+DDIM Sampler:  74%|███████▍  | 62/84 [00:07<00:02,  8.09it/s][A[A
+
+DDIM Sampler:  75%|███████▌  | 63/84 [00:07<00:02,  8.09it/s][A[A
+
+DDIM Sampler:  76%|███████▌  | 64/84 [00:07<00:02,  8.09it/s][A[A
+
+DDIM Sampler:  77%|███████▋  | 65/84 [00:08<00:02,  8.09it/s][A[A
+
+DDIM Sampler:  79%|███████▊  | 66/84 [00:08<00:02,  8.08it/s][A[A
+
+DDIM Sampler:  80%|███████▉  | 67/84 [00:08<00:02,  8.08it/s][A[A
+
+DDIM Sampler:  81%|████████  | 68/84 [00:08<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  82%|████████▏ | 69/84 [00:08<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  83%|████████▎ | 70/84 [00:08<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  85%|████████▍ | 71/84 [00:08<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  86%|████████▌ | 72/84 [00:08<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  87%|████████▋ | 73/84 [00:09<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  88%|████████▊ | 74/84 [00:09<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  89%|████████▉ | 75/84 [00:09<00:01,  8.08it/s][A[A
+
+DDIM Sampler:  90%|█████████ | 76/84 [00:09<00:00,  8.08it/s][A[A
+
+DDIM Sampler:  92%|█████████▏| 77/84 [00:09<00:00,  8.07it/s][A[A
+
+DDIM Sampler:  93%|█████████▎| 78/84 [00:09<00:00,  8.08it/s][A[A
+
+DDIM Sampler:  94%|█████████▍| 79/84 [00:09<00:00,  8.08it/s][A[A
+
+DDIM Sampler:  95%|█████████▌| 80/84 [00:09<00:00,  8.08it/s][A[A
+
+DDIM Sampler:  96%|█████████▋| 81/84 [00:10<00:00,  8.08it/s][A[A
+
+DDIM Sampler:  98%|█████████▊| 82/84 [00:10<00:00,  8.08it/s][A[A
+
+DDIM Sampler:  99%|█████████▉| 83/84 [00:10<00:00,  8.08it/s][A[A
+
+DDIM Sampler: 100%|██████████| 84/84 [00:10<00:00,  8.08it/s][A[ADDIM Sampler: 100%|██████████| 84/84 [00:10<00:00,  8.09it/s]
+
+data: 100%|██████████| 1/1 [00:10<00:00, 10.53s/it][Adata: 100%|██████████| 1/1 [00:10<00:00, 10.53s/it]
+Sampling: 100%|██████████| 4/4 [10:58<00:00, 94.02s/it] Sampling: 100%|██████████| 4/4 [10:58<00:00, 164.68s/it]
+Your samples are ready and waiting for you here: 
+outputs/txt2img-samples 
+ 
+Enjoy.
