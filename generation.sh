@@ -26,4 +26,4 @@ python3 scripts/stable_txt2img.py --ddim_eta 0.0 \
 	--scale 10.0 \
 	--ddim_steps 80 \
 	--ckpt /home/stud/xiec/workarea/Dreambooth-Stable-Diffusion/logdir/cat2022-12-18T10-38-11_dreambooth-training/checkpoints/last.ckpt \
-	--prompt "photo of a sks cat"
+	--prompt "a cross of a sks cat and a panda"
